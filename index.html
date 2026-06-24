@@ -1570,7 +1570,8 @@ function getCTs(){
 }
  function ctItems(cls='ct-item'){
   return getCTs().map(c=>{
-    return `<div class="${cls}"><span style="font-size:1rem;flex-shrink:0">${c.icon}</span><span style="font-size:9pt">${x(c.text)}</span></div>`;
+  const isEmail = c.icon === '✉';
+return `<div class="${cls}"><span style="font-size:${isEmail?'.6rem':'1rem'};flex-shrink:0">${c.icon}</span><span style="font-size:${isEmail?'.6rem':'13pt'}">${x(c.text)}</span></div>`;
   }).join('');
 }
 function rcSpans(){
