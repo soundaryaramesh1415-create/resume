@@ -1631,7 +1631,7 @@ return`<ol style="padding-left:0;list-style-position:inside;margin-left:0;font-s
 function softTagsH(cls='sk-tag'){
   const items=g('fssk').split(',').map(s=>s.trim()).filter(Boolean);
   if(!items.length)return'';
-return`<div style="font-size:8pt">${items.join(', ')}</div>`;
+return`<ol style="padding-left:0;list-style-position:inside;margin-left:0;font-size:8pt;line-height:1.7">${items.map(s=>`<li>${x(s)}</li>`).join('')}</ol>`;
 }
 function langH(cls='lang-item',lvlCls='lang-lvl'){
   const inner=langI.map(id=>{const n=g(`ln-${id}`),l=g(`ll-${id}`);if(!n)return'';
