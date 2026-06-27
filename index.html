@@ -1163,22 +1163,22 @@ font-size:11pt;
 }
 /* ===== FINAL UNIVERSAL FONT SIZE OVERRIDE - ALL TEMPLATES (SCREEN + PRINT) ===== */
 #rp .ss-title, #rp .ms-title, #rp .as-title {
-  font-size: 11pt !important;
+  font-size: 13pt !important;
 }
 #rp .ct-item, #rp .er, #rp .eco, #rp .ed, #rp .edesc, #rp .sum-txt,
 #rp .bar-label, #rp .lang-item, #rp .lang-lvl, #rp .sk-tag {
-  font-size: 10pt !important;
+  font-size: 12pt !important;
 }
-#rp .rn { font-size: 17pt !important; }
-#rp .rt { font-size: 10pt !important; }
+#rp .rn { font-size: 13pt !important; }
+#rp .rt { font-size: 12pt !important; }
 @media print {
-  #rp .ss-title, #rp .ms-title, #rp .as-title { font-size: 11pt !important; }
+  #rp .ss-title, #rp .ms-title, #rp .as-title { font-size: 13pt !important; }
   #rp .ct-item, #rp .er, #rp .eco, #rp .ed, #rp .edesc, #rp .sum-txt,
-  #rp .bar-label, #rp .lang-item, #rp .lang-lvl, #rp .sk-tag { font-size: 10pt !important; }
-  #rp .rn { font-size: 17pt !important; }
-  #rp .rt { font-size: 10pt !important; }
-  #rp .ei { margin-bottom: .35rem !important; }
-  #rp .ms, #rp .ss { margin-bottom: .45rem !important; }
+  #rp .bar-label, #rp .lang-item, #rp .lang-lvl, #rp .sk-tag { font-size: 12pt !important; }
+  #rp .rn { font-size: 14pt !important; }
+  #rp .rt { font-size: 12pt !important; }
+  #rp .ei { margin-bottom: .30rem !important; }
+  #rp .ms, #rp .ss { margin-bottom: .40rem !important; }
 }
 </style>
 </head>
@@ -1593,8 +1593,8 @@ function g(id){const e=document.getElementById(id);return e?e.value.trim():'';}
 function x(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 function dH(txt){
   const ls=txt.split('\n').filter(l=>l.trim());
-  if(!ls.length)return`<div style="font-size:18t;line-height:1.7">${x(txt)}</div>`;
-return`<ol style="padding-left:0;list-style-position:inside;font-size:8pt;line-height:1.7">${ls.map(l=>`<li style="margin-bottom:.12rem">${x(l.replace(/^[•\-]\s*/,''))}</li>`).join('')}</ol>`;
+  if(!ls.length)return`<div style="line-height:1.7">${x(txt)}</div>`;
+return`<ol style="padding-left:0;list-style-position:inside;line-height:1.7">${ls.map(l=>`<li style="margin-bottom:.12rem">${x(l.replace(/^[•\-]\s*/,''))}</li>`).join('')}</ol>`;
 }
 
 function getCTs(){
@@ -1608,11 +1608,11 @@ function getCTs(){
   if(cfs.portfolio&&g('fport'))a.push({icon:'🔗',text:g('fport')});
   return a;
 }
- function ctItems(cls='ct-item'){
+function ctItems(cls='ct-item'){
   return getCTs().map(c=>{
   const isEmail = c.icon === '✉';
-return `<div class="${cls}"><span style="font-size:${isEmail?'.6rem':'1rem'};flex-shrink:0">${c.icon}</span><span style="font-size:${isEmail?'.6rem':'8pt'}">${x(c.text)}</span></div>`;
-  }).join('');
+  return `<div class="${cls}"><span style="font-size:${isEmail?'.9rem':'1rem'};flex-shrink:0">${c.icon}</span><span style="font-size:${isEmail?'.75em':'1em'}">${x(c.text)}</span></div>`;
+}).join('');
 }
 function rcSpans(){
   return getCTs().map(c=>`<span>${c.icon} ${x(c.text)}</span>`).join('');
@@ -1627,12 +1627,12 @@ function barsSkH(){
 function techTagsH(cls='sk-tag'){
   const items=g('fsk').split(',').map(s=>s.trim()).filter(Boolean);
   if(!items.length)return'';
-return`<ol style="padding-left:0;list-style-position:inside;margin-left:0;font-size:8pt;line-height:1.7">${items.map(s=>`<li>${x(s)}</li>`).join('')}</ol>`;
+  return`<ul style="padding-left:1rem;margin-left:0;line-height:1.7;list-style-type:disc">${items.map(s=>`<li>${x(s)}</li>`).join('')}</ul>`;
 }
 function softTagsH(cls='sk-tag'){
   const items=g('fssk').split(',').map(s=>s.trim()).filter(Boolean);
   if(!items.length)return'';
-return`<ol style="padding-left:0;list-style-position:inside;margin-left:0;font-size:8pt;line-height:1.7">${items.map(s=>`<li>${x(s)}</li>`).join('')}</ol>`;
+return`<ul style="padding-left:1rem;margin-left:0;line-height:1.7;list-style-type:disc">${items.map(s=>`<li>${x(s)}</li>`).join('')}</ul>`;
 }
 function langH(cls='lang-item',lvlCls='lang-lvl'){
   const inner=langI.map(id=>{const n=g(`ln-${id}`),l=g(`ll-${id}`);if(!n)return'';
@@ -1652,11 +1652,11 @@ function projH(){
   return projI.map(id=>{const n=g(`pn-${id}`),t=g(`pt-${id}`),d=g(`pd-${id}`),l=g(`pl-${id}`);if(!n)return'';
     return`<div class="ei"><div class="et"><span class="er">${x(n)}</span><span class="ed" style="font-style:italic;font-size:.78rem">${x(t)}</span></div>${d?`<div class="edesc" style="margin-top:.2rem">${x(d)}</div>`:''}${l?`<div class="url-section-link" style="font-size:8pt !important;opacity:.85;margin-top:.15rem;font-weight:500">🔗 ${x(l)}</div>`:''}</div>`;}).join('');
 }
-function certH(){const inner=certI.map(id=>{const n=g(`cn-${id}`),i=g(`ci-${id}`);if(!n)return'';return`<div style="font-size:8pt;margin-bottom:.3rem"><strong>${x(n)}</strong>${i?` <span style="opacity:.6;font-size:8pt">· ${x(i)}</span>`:''}</div>`;}).join('');if(!inner)return'';return`<div>${inner}</div>`;}
-function achH(){const t=g('fach');if(!t)return'';return dH(t);}
-function hobH(){const t=g('fhob');if(!t)return'';return`<div style="font-size:8pt;line-height:1.7">${x(t)}</div>`;}
-function volH(){const t=g('fvol');if(!t)return'';return dH(t);}
 
+function achH(){const t=g('fach');if(!t)return'';return dH(t);}
+function hobH(){const t=g('fhob');if(!t)return'';return`<div style="line-height:1.7">${x(t)}</div>`;}
+function volH(){const t=g('fvol');if(!t)return'';return dH(t);}
+function certH(){const inner=certI.map(id=>{const n=g(`cn-${id}`),i=g(`ci-${id}`);if(!n)return'';return`<div style="margin-bottom:.3rem">${x(n)}${i?` <span style="opacity:.6">· ${x(i)}</span>`:''}</div>`;}).join('');if(!inner)return'';return`<div>${inner}</div>`;}
 function sbSec(tc,title,content){if(!content)return'';return`<div class="ss"><div class="${tc}">${title}</div>${content}</div>`;}
 function mnSec(tc,title,content){if(!content)return'';return`<div class="ms"><div class="${tc}">${title}</div>${content}</div>`;}
 
@@ -1681,7 +1681,7 @@ function buildMain(tc){
     ${exH?`<div class="ms"><div class="${tc}">Experience</div>${exH}</div>`:''}
     ${edH?`<div class="ms"><div class="${tc}">Education</div>${edH}</div>`:''}
     ${prH?`<div class="ms"><div class="${tc}">Projects</div>${prH}</div>`:''}
-    ${acH?`<div class="ms"><div class="${tc}">Achievements</div>${acH}</div>`:''}
+    ${acH?`<div class="ms"><div class="${tc}">Achievements</div><div class="edesc">${acH}</div></div>`:''}
   `;
 }
 
@@ -1875,7 +1875,7 @@ else if(T==='pt17'){
       <div>
         ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
         ${ceH?`<div class="ms"><div class="ms-title">Certifications</div>${ceH}</div>`:''}
-        ${acH?`<div class="ms"><div class="ms-title">Achievements</div>${acH}</div>`:''}
+        ${acH?`<div class="ms"><div class="ms-title">Achievements</div><div class="edesc">${acH}</div></div>`:''}
         ${lkH?`<div class="ms"><div class="ms-title">Links</div>${lkH}</div>`:''}
       </div>
     </div>
@@ -2234,5 +2234,3 @@ render();
 </script>
 </body>
 </html>
-
-
