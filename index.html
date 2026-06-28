@@ -1276,8 +1276,9 @@ font-size:11pt;
       <p class="slbl">Resume Sections</p>
       <div class="tg-grid">
         <div class="tg on" data-s="about" onclick="tog(this)"><span>📝 About Me</span><div class="ck">✓</div></div>
-        <div class="tg on" data-s="experience" onclick="tog(this)"><span>💼 Experience</span><div class="ck">✓</div></div>
-        <div class="tg on" data-s="education" onclick="tog(this)"><span>🎓 Education</span><div class="ck">✓</div></div>
+         <div class="tg on" data-s="experience" onclick="tog(this)"><span>💼 Experience</span><div class="ck">✓</div></div>
+<div class="tg" data-s="internship" onclick="tog(this)"><span>🎒 Internship</span><div class="ck"></div></div>
+<div class="tg on" data-s="education" onclick="tog(this)"><span>🎓 Education</span><div class="ck">✓</div></div>
         <div class="tg on" data-s="techskills" onclick="tog(this)"><span>💻 Tech Skills</span><div class="ck">✓</div></div>
         <div class="tg on" data-s="softskills" onclick="tog(this)"><span>🤝 Soft Skills</span><div class="ck">✓</div></div>
         <div class="tg on" data-s="projects" onclick="tog(this)"><span>🚀 Projects</span><div class="ck">✓</div></div>
@@ -1310,6 +1311,10 @@ font-size:11pt;
       <p class="slbl">Work Experience</p>
       <div id="explist"></div>
       <button class="addbtn" onclick="addE()">+ Add Experience</button>
+
+      <p class="slbl" style="margin-top:.8rem">Internship</p>
+      <div id="intlist"></div>
+      <button class="addbtn" onclick="addI()">+ Add Internship</button>
     </div>
 
     <div class="sec" id="tab-edu">
@@ -1447,10 +1452,10 @@ font-size:11pt;
 
 let tpl = 'pt1';
 let photoSrc = '';
-let secs = {about:1,experience:1,education:1,techskills:1,softskills:1,projects:1,languages:1,certifications:0,achievements:0,hobbies:0,volunteering:0,declaration:0};
+let secs = {about:1,experience:1,internship:0,education:1,techskills:1,softskills:1,projects:1,languages:1,certifications:0,achievements:0,hobbies:0,volunteering:0,declaration:0};
 let cfs = {email:1,phone:1,location:1,website:0,linkedin:1,portfolio:1,github:1};
-let expI=[],eduI=[],projI=[],langI=[],certI=[],skI=[],clI=[];
-let cnt = {e:0,edu:0,p:0,l:0,c:0,sk:0,cl:0};
+let expI=[],intI=[],eduI=[],projI=[],langI=[],certI=[],skI=[],clI=[];
+let cnt = {e:0,i:0,edu:0,p:0,l:0,c:0,sk:0,cl:0};
 
 
 function uploadPhoto(input){
@@ -1633,6 +1638,15 @@ d.innerHTML=`<button class="rm" onclick="rm('exp',${id})">✕</button>
 <div class="fld"><label>Description (use • for bullets)</label><textarea id="ed-${id}" rows="3" placeholder="• Managed social media campaigns reaching 2M users&#10;• Increased brand reach by 60% in 6 months" oninput="render()"></textarea></div>`;
 document.getElementById('explist').appendChild(d);}
 
+function addI(){const id=++cnt.i;intI.push(id);const d=document.createElement('div');d.className='card';d.id='int-'+id;
+d.innerHTML=`<button class="rm" onclick="rm('int',${id})">✕</button>
+<div class="r2"><div class="fld"><label>Role</label><input id="ir-${id}" placeholder="Web Developer Intern" oninput="render()"></div>
+<div class="fld"><label>Company</label><input id="ic-${id}" placeholder="ABC Pvt Ltd" oninput="render()"></div></div>
+<div class="r2"><div class="fld"><label>From</label><input id="is-${id}" placeholder="Jun 2025" oninput="render()"></div>
+<div class="fld"><label>To</label><input id="ie-${id}" placeholder="Aug 2025" oninput="render()"></div></div>
+<div class="fld"><label>Description (use • for bullets)</label><textarea id="id-${id}" rows="3" placeholder="• Assisted in building responsive web pages&#10;• Learned Git version control" oninput="render()"></textarea></div>`;
+document.getElementById('intlist').appendChild(d);}
+
 function addEdu(){const id=++cnt.edu;eduI.push(id);const d=document.createElement('div');d.className='card';d.id='edu-'+id;
 d.innerHTML=`<button class="rm" onclick="rm('edu',${id})">✕</button>
 <div class="r2"><div class="fld"><label>Degree / Class</label><input id="edeg-${id}" placeholder="B.E. / 12th / 10th" oninput="render()"></div>
@@ -1674,9 +1688,9 @@ d.innerHTML=`<button class="rm" onclick="rm('cl',${id})">✕</button>
 document.getElementById('cllist').appendChild(d);}
 
 function rm(type,id){
-  const maps={exp:expI,edu:eduI,proj:projI,lang:langI,cert:certI,sk:skI,cl:clI};
+  const maps={exp:expI,int:intI,edu:eduI,proj:projI,lang:langI,cert:certI,sk:skI,cl:clI};
   maps[type]=maps[type].filter(i=>i!==id);
-  if(type==='exp')expI=maps.exp;if(type==='edu')eduI=maps.edu;if(type==='proj')projI=maps.proj;
+  if(type==='exp')expI=maps.exp;if(type==='int')intI=maps.int;if(type==='edu')eduI=maps.edu;if(type==='proj')projI=maps.proj;
   if(type==='lang')langI=maps.lang;if(type==='cert')certI=maps.cert;if(type==='sk')skI=maps.sk;if(type==='cl')clI=maps.cl;
   document.getElementById(type+'-'+id).remove();render();
 }
@@ -1737,6 +1751,10 @@ function expH(){
   return expI.map(id=>{const r=g(`er-${id}`),c=g(`ec-${id}`),s=g(`es-${id}`),e=g(`ee-${id}`),d=g(`ed-${id}`);if(!r&&!c)return'';
     return`<div class="ei"><div class="et"><span class="er">${x(r)}</span><span class="ed">${x([s,e].filter(Boolean).join(' – '))}</span></div><div class="eco">${x(c)}</div>${d?`<div class="edesc">${dH(d)}</div>`:''}</div>`;}).join('');
 }
+function intH(){
+  return intI.map(id=>{const r=g(`ir-${id}`),c=g(`ic-${id}`),s=g(`is-${id}`),e=g(`ie-${id}`),d=g(`id-${id}`);if(!r&&!c)return'';
+    return`<div class="ei"><div class="et"><span class="er">${x(r)}</span><span class="ed">${x([s,e].filter(Boolean).join(' – '))}</span></div><div class="eco">${x(c)}</div>${d?`<div class="edesc">${dH(d)}</div>`:''}</div>`;}).join('');
+}
 function eduH(){
   return eduI.map(id=>{const deg=g(`edeg-${id}`),inst=g(`einst-${id}`),yr=g(`eyr-${id}`),sc=g(`esc-${id}`);if(!deg&&!inst)return'';
     return`<div class="ei"><div class="et"><span class="er">${x(deg)}</span><span class="ed">${x(yr)}</span></div><div class="eco">${x(inst)}${sc?` · ${x(sc)}`:''}</div></div>`;}).join('');
@@ -1769,10 +1787,11 @@ function buildSidebar(tc, ac){
 }
 function buildMain(tc){
   const abt=secs.about&&g('fab')?`<div class="sum-txt">${x(g('fab'))}</div>`:'';
-  const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
+  const exH=secs.experience?expH():'', inH=secs.internship?intH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
   return `
     ${abt?`<div class="ms"><div class="${tc}">About Me</div>${abt}</div>`:''}
     ${exH?`<div class="ms"><div class="${tc}">Experience</div>${exH}</div>`:''}
+    ${inH?`<div class="ms"><div class="${tc}">Internship</div>${inH}</div>`:''}
     ${edH?`<div class="ms"><div class="${tc}">Education</div>${edH}</div>`:''}
     ${prH?`<div class="ms"><div class="${tc}">Projects</div>${prH}</div>`:''}
     ${acH?`<div class="ms"><div class="${tc}">Achievements</div><div class="edesc">${acH}</div></div>`:''}
@@ -1954,10 +1973,10 @@ else if(T==='pt17'){
   else if(T==='pt13'){
     const {brs,tgs,stgs,lgH,ceH,lkH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">Profile Summary</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'';
+    const exH=secs.experience?expH():'', inH=secs.internship?intH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'';
     html=`<div class="pt13r">
     <div class="rh">${photoSrc?photoEl('photo-header-circle','photo-header-placeholder'):''}<div class="rni"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div></div>
-    ${abt}${exH?`<div class="ms"><div class="ms-title">Experience</div>${exH}</div>`:''}${edH?`<div class="ms"><div class="ms-title">Education</div>${edH}</div>`:''}
+    ${abt}${exH?`<div class="ms"><div class="ms-title">Experience</div>${exH}</div>`:''}${inH?`<div class="ms"><div class="ms-title">Internship</div>${inH}</div>`:''}${edH?`<div class="ms"><div class="ms-title">Education</div>${edH}</div>`:''}
     <div class="two-col">
       <div>
         ${brs?`<div class="ms"><div class="ms-title">Skills</div>${brs}</div>`:''}
@@ -2098,10 +2117,11 @@ else if(T==='pt17'){
   else if(T==='np8'){
     const {brs,tgs,stgs,lgH,ceH,lkH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">Profile Summary</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
+    const exH=secs.experience?expH():'', inH=secs.internship?intH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
     html=`<div class="np8r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     ${abt}${exH?`<div class="ms"><div class="ms-title">Experience</div>${exH}</div>`:''}
+    ${inH?`<div class="ms"><div class="ms-title">Internship</div>${inH}</div>`:''}
     ${edH?`<div class="ms"><div class="ms-title">Education</div>${edH}</div>`:''}
     <div class="two-col">
       <div>
@@ -2201,12 +2221,13 @@ else if(T==='pt17'){
 else if(T==='np13'){
     const {brs,tgs,stgs,lgH,ceH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">About Me</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
+    const exH=secs.experience?expH():'', inH=secs.internship?intH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
     html=`<div class="np13r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     <div class="body-wrap">
       ${abt}
       ${exH?`<div class="ms"><div class="ms-title">Experience</div>${exH}</div>`:''}
+      ${inH?`<div class="ms"><div class="ms-title">Internship</div>${inH}</div>`:''}
       ${edH?`<div class="ms"><div class="ms-title">Education</div>${edH}</div>`:''}
     </div>
     <div class="two-col">
@@ -2230,12 +2251,13 @@ else if(T==='np13'){
   else if(T==='np14'){
     const {brs,tgs,stgs,lgH,ceH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">About Me</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
+    const exH=secs.experience?expH():'', inH=secs.internship?intH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
     html=`<div class="np14r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     <div class="body-wrap">
       ${abt}
       ${exH?`<div class="ms"><div class="ms-title">Experience</div>${exH}</div>`:''}
+      ${inH?`<div class="ms"><div class="ms-title">Internship</div>${inH}</div>`:''}
       ${edH?`<div class="ms"><div class="ms-title">Education</div>${edH}</div>`:''}
     </div>
     <div class="two-col">
@@ -2259,12 +2281,13 @@ ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
   else if(T==='np15'){
     const {brs,tgs,stgs,lgH,ceH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">About Me</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
+    const exH=secs.experience?expH():'', inH=secs.internship?intH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
     html=`<div class="np15r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     <div class="body-wrap">
       ${abt}
       ${exH?`<div class="ms"><div class="ms-title">Experience</div>${exH}</div>`:''}
+      ${inH?`<div class="ms"><div class="ms-title">Internship</div>${inH}</div>`:''}
       ${edH?`<div class="ms"><div class="ms-title">Education</div>${edH}</div>`:''}
     </div>
     <div class="two-col">
@@ -2288,7 +2311,7 @@ ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
   else if(T==='np15'){
     const {brs,tgs,stgs,lgH,ceH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">About Me</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'';
+    
     html=`<div class="np15r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     <div class="body-wrap">
