@@ -1162,24 +1162,64 @@ font-size:11pt;
   font-size: 11pt !important;
 }
 /* ===== FINAL UNIVERSAL FONT SIZE OVERRIDE - ALL TEMPLATES (SCREEN + PRINT) ===== */
+:root{
+  --fs-section-title:13pt;
+  --fs-contact:12pt;
+  --fs-jobtitle:12pt;
+  --fs-company:12pt;
+  --fs-desc:12pt;
+  --fs-summary:12pt;
+  --fs-skills:12pt;
+  --fs-lang:12pt;
+  --fs-name:13pt;
+  --fs-title:12pt;
+  --fs-link:8pt;
+}
 #rp .ss-title, #rp .ms-title, #rp .as-title {
-  font-size: 13pt !important;
+  font-size: var(--fs-section-title) !important;
 }
-#rp .ct-item, #rp .er, #rp .eco, #rp .ed, #rp .edesc, #rp .sum-txt,
-#rp .bar-label, #rp .lang-item, #rp .lang-lvl, #rp .sk-tag {
-  font-size: 12pt !important;
-}
-#rp .rn { font-size: 13pt !important; }
-#rp .rt { font-size: 12pt !important; }
+#rp .ct-item { font-size: var(--fs-contact) !important; }
+#rp .er { font-size: var(--fs-jobtitle) !important; }
+#rp .eco { font-size: var(--fs-company) !important; }
+#rp .ed, #rp .edesc { font-size: var(--fs-desc) !important; }
+#rp .sum-txt { font-size: var(--fs-summary) !important; }
+#rp .bar-label, #rp .sk-tag { font-size: var(--fs-skills) !important; }
+#rp .lang-item, #rp .lang-lvl { font-size: var(--fs-lang) !important; }
+#rp .rn { font-size: var(--fs-name) !important; }
+#rp .rt { font-size: var(--fs-title) !important; }
 @media print {
-  #rp .ss-title, #rp .ms-title, #rp .as-title { font-size: 13pt !important; }
-  #rp .ct-item, #rp .er, #rp .eco, #rp .ed, #rp .edesc, #rp .sum-txt,
-  #rp .bar-label, #rp .lang-item, #rp .lang-lvl, #rp .sk-tag { font-size: 12pt !important; }
-  #rp .rn { font-size: 14pt !important; }
-  #rp .rt { font-size: 12pt !important; }
+  #rp .ss-title, #rp .ms-title, #rp .as-title { font-size: var(--fs-section-title) !important; }
+  #rp .ct-item { font-size: var(--fs-contact) !important; }
+  #rp .er { font-size: var(--fs-jobtitle) !important; }
+  #rp .eco { font-size: var(--fs-company) !important; }
+  #rp .ed, #rp .edesc { font-size: var(--fs-desc) !important; }
+  #rp .sum-txt { font-size: var(--fs-summary) !important; }
+  #rp .bar-label, #rp .sk-tag { font-size: var(--fs-skills) !important; }
+  #rp .lang-item, #rp .lang-lvl { font-size: var(--fs-lang) !important; }
+  #rp .rn { font-size: var(--fs-name) !important; }
+  #rp .rt { font-size: var(--fs-title) !important; }
   #rp .ei { margin-bottom: .30rem !important; }
   #rp .ms, #rp .ss { margin-bottom: .40rem !important; }
 }
+
+#rp .link-item {
+  font-size: var(--fs-link) !important;
+}
+
+.ct-item, .link-item {
+  flex-wrap: wrap;
+}
+.ct-item span:last-child, .link-item span:last-child {
+  word-break: break-all;
+  overflow-wrap: break-word;
+  min-width: 0;
+  flex: 1;
+}
+
+.pt9r .rn, .pt9r .rt, .pt9r .rc, .pt9r .rc span {
+  color: #ffffff !important;
+}
+
 </style>
 </head>
 <body>
@@ -1332,8 +1372,56 @@ font-size:11pt;
       <p class="tcat" style="margin-top:.4rem">🚫 Without Photo — Border + Color Design (6)</p>
       <div class="tgrid" id="tplgrid-np-border"></div>
 
-      <p class="tcat">🚫 Without Photo — Color Design (6)</p>
+  <p class="tcat">🚫 Without Photo — Color Design (6)</p>
       <div class="tgrid" id="tplgrid-np-color"></div>
+
+      <p class="slbl" style="margin-top:.7rem">Topic-wise Font Sizes</p>
+      <div class="fld">
+        <label>Name: <span id="fsv-name">13</span>pt</label>
+        <input type="range" id="fs-name" min="8" max="24" value="13" oninput="setFS('name',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>Job Title (header line): <span id="fsv-title">12</span>pt</label>
+        <input type="range" id="fs-title" min="6" max="20" value="12" oninput="setFS('title',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>Section Headings: <span id="fsv-section-title">13</span>pt</label>
+        <input type="range" id="fs-section-title" min="6" max="20" value="13" oninput="setFS('section-title',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>Contact Info: <span id="fsv-contact">12</span>pt</label>
+        <input type="range" id="fs-contact" min="6" max="18" value="12" oninput="setFS('contact',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>About / Summary: <span id="fsv-summary">12</span>pt</label>
+        <input type="range" id="fs-summary" min="6" max="18" value="12" oninput="setFS('summary',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>Experience Job Title: <span id="fsv-jobtitle">12</span>pt</label>
+        <input type="range" id="fs-jobtitle" min="6" max="18" value="12" oninput="setFS('jobtitle',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>Company / Institution: <span id="fsv-company">12</span>pt</label>
+        <input type="range" id="fs-company" min="6" max="18" value="12" oninput="setFS('company',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>Description text: <span id="fsv-desc">12</span>pt</label>
+        <input type="range" id="fs-desc" min="6" max="18" value="12" oninput="setFS('desc',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>Skills / Tags: <span id="fsv-skills">12</span>pt</label>
+        <input type="range" id="fs-skills" min="6" max="18" value="12" oninput="setFS('skills',this.value)" style="width:100%">
+      </div>
+      <div class="fld">
+        <label>Languages: <span id="fsv-lang">12</span>pt</label>
+        <input type="range" id="fs-lang" min="6" max="18" value="12" oninput="setFS('lang',this.value)" style="width:100%">
+      </div>
+
+      <p class="slbl" style="margin-top:.7rem">LinkedIn / GitHub / Portfolio Font Size</p>
+      <div class="fld">
+        <label>Size: <span id="lfsVal">8</span>pt</label>
+        <input type="range" id="lfs" min="6" max="14" value="8" oninput="setLinkFontSize(this.value)" style="width:100%">
+      </div>
     </div>
 
   </div>
@@ -1615,7 +1703,8 @@ function getCTs(){
 function ctItems(cls='ct-item'){
   return getCTs().map(c=>{
   const isEmail = c.icon === '✉';
-  return `<div class="${cls}"><span style="font-size:${isEmail?'.9rem':'1rem'};flex-shrink:0">${c.icon}</span><span style="font-size:${isEmail?'.75em':'1em'}">${x(c.text)}</span></div>`;
+  const isLink = ['💼','💻','🔗'].includes(c.icon);
+  return `<div class="${cls}${isLink?' link-item':''}"><span style="font-size:${isEmail?'.9rem':'1rem'};flex-shrink:0">${c.icon}</span><span style="font-size:${isEmail?'.75em':'1em'}">${x(c.text)}</span></div>`;
 }).join('');
 }
 function rcSpans(){
@@ -1666,7 +1755,7 @@ function sbSec(tc,title,content){if(!content)return'';return`<div class="ss"><di
 function mnSec(tc,title,content){if(!content)return'';return`<div class="ms"><div class="${tc}">${title}</div>${content}</div>`;}
 
 function buildSidebar(tc, ac){
-  const brs=barsSkH(), tgs=techTagsH(), stgs=softTagsH(), lgH=langI.length&&secs.languages?langH():'', ceH=secs.certifications?certH():'', lkH=secs.links?linksH(ac):'', hbH=secs.hobbies?hobH():'', vlH=secs.volunteering?volH():'';
+  const brs=barsSkH(), tgs=techTagsH(), stgs=softTagsH(), lgH=langI.length&&secs.languages?langH():'', ceH=secs.certifications?certH():'', lkH='', hbH=secs.hobbies?hobH():'', vlH=secs.volunteering?volH():'';
   return `
     ${sbSec(tc,'Contact',ctItems())}
     ${brs?`<div class="ss"><div class="${tc}">Skills</div>${brs}</div>`:''}
@@ -2009,7 +2098,7 @@ else if(T==='pt17'){
   else if(T==='np8'){
     const {brs,tgs,stgs,lgH,ceH,lkH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">Profile Summary</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'';
+    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
     html=`<div class="np8r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     ${abt}${exH?`<div class="ms"><div class="ms-title">Experience</div>${exH}</div>`:''}
@@ -2027,6 +2116,7 @@ else if(T==='pt17'){
         ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
         ${ceH?`<div class="ms"><div class="ms-title">Certifications</div>${ceH}</div>`:''}
         ${acH?`<div class="ms"><div class="ms-title">Achievements</div>${acH}</div>`:''}
+        ${dcH?`<div class="ms"><div class="ms-title">Declaration</div><div class="edesc">${dcH}</div></div>`:''}
         ${lkH?`<div class="ms"><div class="ms-title">Links</div>${lkH}</div>`:''}
       </div>
     </div></div>`;}
@@ -2111,7 +2201,7 @@ else if(T==='pt17'){
 else if(T==='np13'){
     const {brs,tgs,stgs,lgH,ceH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">About Me</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'';
+    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
     html=`<div class="np13r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     <div class="body-wrap">
@@ -2131,6 +2221,7 @@ else if(T==='np13'){
         ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
         ${ceH?`<div class="ms"><div class="ms-title">Certifications</div>${ceH}</div>`:''}
         ${acH?`<div class="ms"><div class="ms-title">Achievements</div>${acH}</div>`:''}
+        ${dcH?`<div class="ms"><div class="ms-title">Declaration</div><div class="edesc">${dcH}</div></div>`:''}
         ${vlH?`<div class="ms"><div class="ms-title">Volunteering</div>${vlH}</div>`:''}
 </div>
     </div>
@@ -2139,7 +2230,7 @@ else if(T==='np13'){
   else if(T==='np14'){
     const {brs,tgs,stgs,lgH,ceH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">About Me</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'';
+    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
     html=`<div class="np14r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     <div class="body-wrap">
@@ -2159,6 +2250,7 @@ else if(T==='np13'){
 ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
         ${ceH?`<div class="ms"><div class="ms-title">Certifications</div>${ceH}</div>`:''}
         ${acH?`<div class="ms"><div class="ms-title">Achievements</div>${acH}</div>`:''}
+        ${dcH?`<div class="ms"><div class="ms-title">Declaration</div><div class="edesc">${dcH}</div></div>`:''}
         ${vlH?`<div class="ms"><div class="ms-title">Volunteering</div>${vlH}</div>`:''}
       </div>
     </div>
@@ -2167,7 +2259,7 @@ ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
   else if(T==='np15'){
     const {brs,tgs,stgs,lgH,ceH,hbH,vlH}=getSidebarParts();
     const abt=secs.about&&g('fab')?`<div class="ms"><div class="ms-title">About Me</div><div class="sum-txt">${x(g('fab'))}</div></div>`:'';
-    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'';
+    const exH=secs.experience?expH():'', edH=secs.education?eduH():'', prH=secs.projects?projH():'', acH=secs.achievements?achH():'', dcH=secs.declaration?decH():'';
     html=`<div class="np15r">
     <div class="rh"><div class="rn">${nm}</div><div class="rt">${ti}</div><div class="rc">${rcSpans()}</div></div>
     <div class="body-wrap">
@@ -2187,6 +2279,7 @@ ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
   ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
         ${ceH?`<div class="ms"><div class="ms-title">Certifications</div>${ceH}</div>`:''}
         ${acH?`<div class="ms"><div class="ms-title">Achievements</div>${acH}</div>`:''}
+        ${dcH?`<div class="ms"><div class="ms-title">Declaration</div><div class="edesc">${dcH}</div></div>`:''}
         ${vlH?`<div class="ms"><div class="ms-title">Volunteering</div>${vlH}</div>`:''}
       </div>
     </div>
@@ -2221,6 +2314,7 @@ ${prH?`<div class="ms"><div class="ms-title">Projects</div>${prH}</div>`:''}
     </div>`;}
 
   document.getElementById('rp').innerHTML = html;
+  saveToStorage();
 }
 
 function getSidebarParts(){
@@ -2235,7 +2329,56 @@ function getSidebarParts(){
   };
 }
 
+function setLinkFontSize(v){
+  document.getElementById('lfsVal').textContent = v;
+  document.getElementById('rp').style.setProperty('--fs-link', v+'pt');
+}
 
+function setFS(key, v){
+  document.getElementById('fsv-'+key).textContent = v;
+  document.getElementById('rp').style.setProperty('--fs-'+key, v+'pt');
+}
+
+function saveToStorage(){
+  const data = {
+    fn:g('fn'), ft:g('ft'), fe:g('fe'), fp:g('fp'), fl:g('fl'), fw:g('fw'),
+    fli:g('fli'), fgh:g('fgh'), fport:g('fport'), fab:g('fab'),
+    fsk:g('fsk'), fssk:g('fssk'), fach:g('fach'), fhob:g('fhob'),
+    fvol:g('fvol'), fdec:g('fdec'), tpl, photoSrc, secs, cfs
+  };
+  localStorage.setItem('resumeData', JSON.stringify(data));
+}
+
+function loadFromStorage(){
+  const saved = localStorage.getItem('resumeData');
+  if(!saved) return;
+  const data = JSON.parse(saved);
+  document.getElementById('fn').value = data.fn||'';
+  document.getElementById('ft').value = data.ft||'';
+  document.getElementById('fe').value = data.fe||'';
+  document.getElementById('fp').value = data.fp||'';
+  document.getElementById('fl').value = data.fl||'';
+  document.getElementById('fw').value = data.fw||'';
+  document.getElementById('fli').value = data.fli||'';
+  document.getElementById('fgh').value = data.fgh||'';
+  document.getElementById('fport').value = data.fport||'';
+  document.getElementById('fab').value = data.fab||'';
+  document.getElementById('fsk').value = data.fsk||'';
+  document.getElementById('fssk').value = data.fssk||'';
+  document.getElementById('fach').value = data.fach||'';
+  document.getElementById('fhob').value = data.fhob||'';
+  document.getElementById('fvol').value = data.fvol||'';
+  document.getElementById('fdec').value = data.fdec||'';
+  tpl = data.tpl||'pt1';
+  photoSrc = data.photoSrc||'';
+  if(photoSrc){
+    document.getElementById('photoCircle').innerHTML = `<img src="${photoSrc}" alt="photo">`;
+  }
+  secs = data.secs||secs;
+  cfs = data.cfs||cfs;
+}
+
+loadFromStorage();
 render();
 </script>
 </body>
